@@ -1,0 +1,168 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "7edfd40a-1976-4b17-9834-379e21f66215",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#Preparing sql environment\n",
+    "%load_ext sql"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "37bfe0de-2a7a-47f4-a5cc-546e3b725365",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%sql mysql+pymysql://root:0479%40Kanya@127.0.0.1:3306/united_nations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "26009a93-5577-47c4-9f21-a871c4e2abc7",
+   "metadata": {},
+   "source": [
+    "**1. Create a table that contains data about access to basic services for each country and year only.**\n",
+    "\n",
+    "Create a table named Basic_services with the columns Country_name, Time_period, Pct_managed_drinking_water_services, and Pct_managed_sanitation_services, with Country_name and Time_period being the composite keys and Country_name being the foreign key."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "aeca96ab-2166-4470-8c90-b176d44c9cd4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " * mysql+pymysql://root:***@127.0.0.1:3306/united_nations\n",
+      "0 rows affected.\n",
+      "1048 rows affected.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "[]"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%%sql\n",
+    "\n",
+    "CREATE TABLE united_nations.Basic_Services (\n",
+    "  Country_name VARCHAR(37),\n",
+    "  Time_period INTEGER,\n",
+    "  Pct_managed_drinking_water_services NUMERIC(5,2),\n",
+    "  Pct_managed_sanitation_services NUMERIC(5,2),\n",
+    "  PRIMARY KEY (Country_name, Time_period),\n",
+    "  FOREIGN KEY (Country_name) REFERENCES Geographic_Location (Country_name)\n",
+    ");\n",
+    "\n",
+    "INSERT INTO Basic_Services (Country_name, Time_period, Pct_managed_drinking_water_services, Pct_managed_sanitation_services)\n",
+    "SELECT Country_name,\n",
+    "    Time_period,\n",
+    "    Pct_managed_drinking_water_services,\n",
+    "    Pct_managed_sanitation_services\n",
+    "FROM united_nations.Access_to_Basic_Services;"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "19590c30-cc70-4bb1-9b7e-218560bdee63",
+   "metadata": {},
+   "source": [
+    "**2. Create a table that contains the economic indicators.**\n",
+    "\n",
+    "Create a table named Economic_indicators with the columns Country_name, Time_period, Est_gdp_in_billions, Est_population_in_millions, and Pct_unemployment, with Country_name and Time_period being the composite keys and Country_name being the foreign key."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "61f0291a-ac95-41f6-a26a-1c8f02e137d2",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      " * mysql+pymysql://root:***@127.0.0.1:3306/united_nations\n",
+      "0 rows affected.\n",
+      "1048 rows affected.\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "[]"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%%sql\n",
+    "\n",
+    "CREATE TABLE united_nations.Economic_Indicators (\n",
+    "  Country_name VARCHAR(37),\n",
+    "  Time_period INTEGER,\n",
+    "  Est_gdp_in_billions NUMERIC(8,2),\n",
+    "  Est_population_in_millions NUMERIC(11,6),\n",
+    "  Pct_unemployment NUMERIC(5,2),\n",
+    "  PRIMARY KEY (Country_name, Time_period),\n",
+    "  FOREIGN KEY (Country_name) REFERENCES Geographic_Location (Country_name)\n",
+    ");\n",
+    "\n",
+    "INSERT INTO Economic_Indicators (Country_name, Time_period, Est_gdp_in_billions, Est_population_in_millions, Pct_unemployment)\n",
+    "SELECT Country_name,\n",
+    "    Time_period,\n",
+    "    Est_gdp_in_billions,\n",
+    "    Est_population_in_millions,\n",
+    "    Pct_unemployment\n",
+    "FROM united_nations.Access_to_Basic_Services;"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "656184a8-aa8b-43be-bfc4-7fa609c28057",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
