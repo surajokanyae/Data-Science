@@ -24,6 +24,4 @@ Excel is treated here as an analytical tool — not just a spreadsheet.
 - Conditional Formatting
 - Data validation
 - Basic dashboards
-
-    ├── performance_dashboard.xlsx
     └── insights_dashboard.xlsx
