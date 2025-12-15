@@ -23,6 +23,3 @@ SQL is used as a core tool for working with relational databases and extracting 
 - MySQL (syntax-focused)
 - MySQL Workbench
 - Relational database concepts
-
-    ├── sales_analysis.sql
-    └── customer_insights.sql
