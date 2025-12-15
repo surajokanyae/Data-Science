@@ -24,5 +24,5 @@ Power BI is used as a storytelling and reporting tool, not just for charts.
 - DAX (CALCULATE, SUM, COUNT, basic measures)
 - Filters, slicers, and drill-downs
 - Interactive visuals and reports
-    ├── business_insights.pbix
-    └── summary_report.pbix
+- business_insights.pbix
+- summary_report.pbix
